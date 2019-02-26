@@ -11,10 +11,9 @@
     "url": "git+https://github.com/shahnawaz/react-native-barcode-mask.git"
   },
   "keywords": [
-    "react",
-    "native",
     "react-native",
-    "barcode",
+    "react native",
+    "barcode-mask",
     "barcode",
     "scanning",
     "style",
@@ -28,5 +27,9 @@
   "homepage": "https://github.com/shahnawaz/react-native-barcode-mask#readme",
   "dependencies": {
     "prop-types": "^15.6.2"
+  },
+  "peerDependency": {
+    "react": "^16.4.0",
+    "react-native": "^0.57.8"
   }
 }

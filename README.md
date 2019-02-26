@@ -1,6 +1,10 @@
-# BarcodeMask
+# react-native-barcode-mask
 
-> A barcode scan layout for react-native applications with customizable styling
+![version](https://img.shields.io/npm/v/react-native-barcode-mask.svg?style=flat-square)
+![dependencies](https://img.shields.io/david/shahnawaz/react-native-barcode-mask.svg?style=flat-square)
+![licence](https://img.shields.io/npm/l/react-native-barcode-mask.svg?style=flat-square)
+
+> :camera: A barcode scan layout for react-native applications with customizable styling
 
 <p align="center" >
     <img 
@@ -105,13 +109,13 @@ Default: `1500`
 
 ## Examples
 
-Few style modifications (respectively):
+Few style modifications:
 
 ```javascript
-<BarcodeFinderMask width={300} height={100} />
-<BarcodeFinderMask edgeColor={"#62B1F6"} showAnimatedLine={false}/>
-<BarcodeFinderMask width={100} height={300} showAnimatedLine={false} transparency={0.8}/>
-<BarcodeFinderMask width={300} height={100} edgeBorderWidth={1} />
+<BarcodeMask width={300} height={100} />
+<BarcodeMask edgeColor={'#62B1F6'} showAnimatedLine={false}/>
+<BarcodeMask width={100} height={300} showAnimatedLine={false} transparency={0.8}/>
+<BarcodeMask width={300} height={100} edgeBorderWidth={1} />
 ```
 
 <p align="center" >
@@ -132,3 +136,17 @@ Few style modifications (respectively):
         src="https://user-images.githubusercontent.com/20506431/53305264-40d37200-38a1-11e9-8752-1c5deaf78c65.png"
     >
 </p>
+
+  
+:star: Pretty cool! Right?  
+
+## Contribution
+
+Want to add some new styles or layout?  
+Want to update few things?  
+
+Feel free to open a PR.
+
+## License
+
+[MIT](https://github.com/shahnawaz/react-native-barcode-mask/blob/master/LICENSE)
