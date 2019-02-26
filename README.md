@@ -13,6 +13,10 @@
     >
 </p>
 
+## Install
+
+`npm i react-native-barcode-mask -s`
+
 ## Usage
 
 All you need is to `import` `BarcodeMask` from the `react-native-barcode-mask` module and then use it. 
