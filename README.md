@@ -1,6 +1,6 @@
 # BarcodeMask
 
-> A barcode scan layout for react-native applications
+> A barcode scan layout for react-native applications with customizable styling
 
 <p align="center" >
     <img 
