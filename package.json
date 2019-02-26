@@ -1,6 +1,6 @@
 {
   "name": "react-native-barcode-mask",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A barcode scan layout for react-native applications with customizable styling",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   ],
   "author": "Shahnawaz Ali <shahnawazakausar@gmail.com>",
   "license": "MIT",
-    "bugs": {
+  "bugs": {
     "url": "https://github.com/shahnawaz/react-native-barcode-mask/issues"
   },
   "homepage": "https://github.com/shahnawaz/react-native-barcode-mask#readme",
