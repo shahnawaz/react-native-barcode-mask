@@ -4,7 +4,7 @@
 ![dependencies](https://img.shields.io/david/shahnawaz/react-native-barcode-mask.svg?style=flat-square)
 ![licence](https://img.shields.io/npm/l/react-native-barcode-mask.svg?style=flat-square)
 
-> :camera: A barcode and QR scan layout for react-native applications with customizable styling
+> :camera: A barcode and QR code scan layout for react-native applications with customizable styling
 
 <p align="center" >
     <img 
@@ -29,7 +29,7 @@ Inside `<RNCamera>...</RNCamera>` tag as a child component.
 'use strict';
 import React, { Component } from 'react';
 import { RNCamera } from 'react-native-camera';
-import { BarcodeMask } from 'react-native-barcode-mask';
+import BarcodeMask from 'react-native-barcode-mask';
 
 ...
     <RNCamera
@@ -43,20 +43,6 @@ import { BarcodeMask } from 'react-native-barcode-mask';
 ## Examples
 
 Few style modifications:
-
-```javascript
-// Barcode
-<BarcodeMask width={300} height={100} />
-
-// QR
-<BarcodeMask edgeColor={'#62B1F6'} showAnimatedLine={false}/>
-
-// Barcode example 2
-<BarcodeMask width={100} height={300} showAnimatedLine={false} transparency={0.8}/>
-
-// Barcode example 3
-<BarcodeMask width={300} height={100} edgeBorderWidth={1} />
-```
 
 <p align="center" >
     <img 
@@ -77,6 +63,19 @@ Few style modifications:
     >
 </p>
 
+```javascript
+// Barcode
+<BarcodeMask width={300} height={100} />
+
+// QR
+<BarcodeMask edgeColor={'#62B1F6'} showAnimatedLine={false}/>
+
+// Barcode example 2
+<BarcodeMask width={100} height={300} showAnimatedLine={false} transparency={0.8}/>
+
+// Barcode example 3
+<BarcodeMask width={300} height={100} edgeBorderWidth={1} />
+```
   
 :star: Pretty cool! Right?  
 
