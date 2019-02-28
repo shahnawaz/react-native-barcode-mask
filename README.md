@@ -4,7 +4,7 @@
 ![dependencies](https://img.shields.io/david/shahnawaz/react-native-barcode-mask.svg?style=flat-square)
 ![licence](https://img.shields.io/npm/l/react-native-barcode-mask.svg?style=flat-square)
 
-> :camera: A barcode scan layout for react-native applications with customizable styling
+> :camera: A barcode and QR scan layout for react-native applications with customizable styling
 
 <p align="center" >
     <img 
@@ -39,6 +39,46 @@ import { BarcodeMask } from 'react-native-barcode-mask';
     </RNCamera>
 ...
 ```
+
+## Examples
+
+Few style modifications:
+
+```javascript
+// Barcode
+<BarcodeMask width={300} height={100} />
+
+// QR
+<BarcodeMask edgeColor={'#62B1F6'} showAnimatedLine={false}/>
+
+// Barcode example 2
+<BarcodeMask width={100} height={300} showAnimatedLine={false} transparency={0.8}/>
+
+// Barcode example 3
+<BarcodeMask width={300} height={100} edgeBorderWidth={1} />
+```
+
+<p align="center" >
+    <img 
+        height="300" 
+        src="https://user-images.githubusercontent.com/20506431/53305263-40d37200-38a1-11e9-8106-6c79f4d59ead.png"
+    >
+    <img 
+        height="300" 
+        src="https://user-images.githubusercontent.com/20506431/53305265-416c0880-38a1-11e9-9364-7fd0b987207a.png"
+    >
+    <img 
+        height="300" 
+        src="https://user-images.githubusercontent.com/20506431/53305266-416c0880-38a1-11e9-8ef0-9ec9912fd355.png"
+    >
+    <img 
+        height="300" 
+        src="https://user-images.githubusercontent.com/20506431/53305264-40d37200-38a1-11e9-8752-1c5deaf78c65.png"
+    >
+</p>
+
+  
+:star: Pretty cool! Right?  
 
 ## Properties
 
@@ -110,39 +150,6 @@ Default: `2`
 
 Value: number  
 Default: `1500`
-
-## Examples
-
-Few style modifications:
-
-```javascript
-<BarcodeMask width={300} height={100} />
-<BarcodeMask edgeColor={'#62B1F6'} showAnimatedLine={false}/>
-<BarcodeMask width={100} height={300} showAnimatedLine={false} transparency={0.8}/>
-<BarcodeMask width={300} height={100} edgeBorderWidth={1} />
-```
-
-<p align="center" >
-    <img 
-        height="300" 
-        src="https://user-images.githubusercontent.com/20506431/53305263-40d37200-38a1-11e9-8106-6c79f4d59ead.png"
-    >
-    <img 
-        height="300" 
-        src="https://user-images.githubusercontent.com/20506431/53305265-416c0880-38a1-11e9-9364-7fd0b987207a.png"
-    >
-    <img 
-        height="300" 
-        src="https://user-images.githubusercontent.com/20506431/53305266-416c0880-38a1-11e9-8ef0-9ec9912fd355.png"
-    >
-    <img 
-        height="300" 
-        src="https://user-images.githubusercontent.com/20506431/53305264-40d37200-38a1-11e9-8752-1c5deaf78c65.png"
-    >
-</p>
-
-  
-:star: Pretty cool! Right?  
 
 ## Contribution
 
