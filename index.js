@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    ...StyleSheet.absoluteFill,
+    ...StyleSheet.absoluteFillObject,
   },
   finder: {
     alignItems: 'center',
@@ -123,7 +123,6 @@ class BarcodeMask extends React.Component {
 
   _renderEdge = (edgePosition) => {
     const defaultStyle = {
-      ...styles[edgePosition + 'Edge'],
       width: this.props.edgeWidth,
       height: this.props.edgeHeight,
       borderColor: this.props.edgeColor,
@@ -146,7 +145,7 @@ class BarcodeMask extends React.Component {
         borderBottomWidth: this.props.edgeBorderWidth,
       },
     };
-    return <View style={[defaultStyle, edgeBorderStyle[edgePosition]]} />;
+    return <View style={[defaultStyle, styles[edgePosition + 'Edge'], edgeBorderStyle[edgePosition]]} />;
   };
 
   render() {
