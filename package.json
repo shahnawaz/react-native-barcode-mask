@@ -1,36 +1,36 @@
 {
-	"name": "react-native-barcode-mask",
-	"version": "1.0.3",
-	"description": "A barcode and QR code scan layout for react-native applications with customizable styling",
+  "name": "react-native-barcode-mask",
+  "version": "1.0.3",
+  "description": "A barcode and QR code scan layout for react-native applications with customizable styling",
 	"main": "index.js",
 	"typings": "index.d.ts",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/shahnawaz/react-native-barcode-mask.git"
-	},
-	"keywords": [
-		"react-native",
-		"react native",
-		"barcode-mask",
-		"barcode",
-		"scanning",
-		"style",
-		"layout"
-	],
-	"author": "Shahnawaz Ali <shahnawazakausar@gmail.com>",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/shahnawaz/react-native-barcode-mask/issues"
-	},
-	"homepage": "https://github.com/shahnawaz/react-native-barcode-mask#readme",
-	"dependencies": {
-		"prop-types": "^15.6.2"
-	},
-	"peerDependency": {
-		"react": "^16.4.0",
-		"react-native": "^0.57.8"
-	}
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shahnawaz/react-native-barcode-mask.git"
+  },
+  "keywords": [
+    "react-native",
+    "react native",
+    "barcode-mask",
+    "barcode",
+    "scanning",
+    "style",
+    "layout"
+  ],
+  "author": "Shahnawaz Ali <shahnawazakausar@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shahnawaz/react-native-barcode-mask/issues"
+  },
+  "homepage": "https://github.com/shahnawaz/react-native-barcode-mask#readme",
+  "dependencies": {
+    "prop-types": "^15.6.2"
+  },
+  "peerDependency": {
+    "react": "^16.4.0",
+    "react-native": "^0.57.8"
+  }
 }
