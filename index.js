@@ -77,10 +77,16 @@ class BarcodeMask extends React.Component {
     this._startLineAnimation();
   }
 
+  componentWillUnmount () {
+    if (this.animation) {
+      this.animation.stop();
+    }
+  }
+
   _startLineAnimation = () => {
     const intervalId = setInterval(() => {
       if (this.state.maskCenterViewHeight > 0) {
-        this._animateLineDown();
+        this._animateLoop();
         clearInterval(this.state.intervalId);
       }
     }, 500);
@@ -89,19 +95,21 @@ class BarcodeMask extends React.Component {
     });
   };
 
-  _animateLineUp = () => {
-    Animated.timing(this.state.top, {
-      toValue: 10,
-      duration: this.props.lineAnimationDuration,
-    }).start(this._animateLineDown);
-  };
-
-  _animateLineDown = () => {
-    Animated.timing(this.state.top, {
-      toValue: this.state.maskCenterViewHeight - 10,
-      duration: this.props.lineAnimationDuration,
-    }).start(this._animateLineUp);
-  };
+  _animateLoop = () => {
+    this.animation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(this.state.top, {
+          toValue: this.state.maskCenterViewHeight - 10,
+          duration: this.props.lineAnimationDuration,
+        }),
+        Animated.timing(this.state.top, {
+          toValue: 10,
+          duration: this.props.lineAnimationDuration,
+        })
+      ])
+    );
+    this.animation.start();
+  }
 
   _onMaskCenterViewLayoutUpdated = ({ nativeEvent }) => {
     this.setState({
