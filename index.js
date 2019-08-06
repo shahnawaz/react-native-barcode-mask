@@ -44,10 +44,6 @@ const styles = StyleSheet.create({
   maskInner: {
     backgroundColor: 'transparent',
   },
-  maskFrame: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    flex: 1,
-  },
   maskRow: {
     width: '100%',
   },
@@ -77,7 +73,7 @@ class BarcodeMask extends React.Component {
     this._startLineAnimation();
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.animation) {
       this.animation.stop();
     }
@@ -117,16 +113,15 @@ class BarcodeMask extends React.Component {
     });
   };
 
-  _applyMaskFrameTransparency = () => {
-    let transparency = 0.6;
+  _applyMaskFrameBackgroundColor = () => {
+    let backgroundColor = 'rgba(0, 0, 0, 0.6)';
     if (
-      this.props.transparency &&
-      Number(this.props.transparency) &&
-      (this.props.transparency >= 0 || this.props.transparency <= 1)
+      this.props.backgroundColor &&
+      String(this.props.backgroundColor)
     ) {
-      transparency = this.props.transparency;
+      backgroundColor = this.props.backgroundColor;
     }
-    return { backgroundColor: 'rgba(0,0,0,' + transparency + ')' };
+    return { backgroundColor: backgroundColor, flex: 1 };
   };
 
   _renderEdge = (edgePosition) => {
@@ -188,12 +183,12 @@ class BarcodeMask extends React.Component {
         </View>
 
         <View style={styles.maskOuter}>
-          <View style={[styles.maskRow, styles.maskFrame, this._applyMaskFrameTransparency()]} />
+          <View style={[styles.maskRow, this._applyMaskFrameBackgroundColor()]} />
           <View
             style={[{ height: this.props.height }, styles.maskCenter]}
             onLayout={this._onMaskCenterViewLayoutUpdated}
           >
-            <View style={[styles.maskFrame, this._applyMaskFrameTransparency()]} />
+            <View style={[this._applyMaskFrameBackgroundColor()]} />
             <View
               style={[
                 styles.maskInner,
@@ -203,9 +198,9 @@ class BarcodeMask extends React.Component {
                 },
               ]}
             />
-            <View style={[styles.maskFrame, this._applyMaskFrameTransparency()]} />
+            <View style={[this._applyMaskFrameBackgroundColor()]} />
           </View>
-          <View style={[styles.maskRow, styles.maskFrame, this._applyMaskFrameTransparency()]} />
+          <View style={[styles.maskRow, this._applyMaskFrameBackgroundColor()]} />
         </View>
       </View>
     );
@@ -225,6 +220,7 @@ const propTypes: PropsType = {
   animatedLineColor: PropTypes.string,
   animatedLineHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   lineAnimationDuration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  backgroundColor: PropTypes.string,
 };
 
 const defaultProps = {
@@ -234,11 +230,11 @@ const defaultProps = {
   edgeHeight: 20,
   edgeColor: '#FFF',
   edgeBorderWidth: 4,
-  transparency: 0.6,
   showAnimatedLine: true,
   animatedLineColor: '#FFF',
   animatedLineHeight: 2,
   lineAnimationDuration: 1500,
+  backgroundColor: 'rbga(0, 0, 0, 0.6)'
 };
 
 BarcodeMask.propTypes = propTypes;
