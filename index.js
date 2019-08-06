@@ -215,7 +215,6 @@ const propTypes: PropsType = {
   edgeHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   edgeColor: PropTypes.string,
   edgeBorderWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  transparency: PropTypes.number,
   showAnimatedLine: PropTypes.bool,
   animatedLineColor: PropTypes.string,
   animatedLineHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
