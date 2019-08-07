@@ -123,10 +123,10 @@ Default: `4`
 
 Use this to modify the border (thickness) of edges
 
-#### `transparency`
+#### `backgroundColor`
 
-Value: float from `0` to `1.0`  
-Default: `0.6`
+Value: string `rgba(0, 0, 0, 0.6)` 
+Default: `rgba(0, 0, 0, 0.6)`
 
 Use this to modify the transparency of area around finder
 
