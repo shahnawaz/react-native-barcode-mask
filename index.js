@@ -113,7 +113,7 @@ class BarcodeMask extends React.Component {
     });
   };
 
-  _applyMaskFrameBackgroundColor = () => {
+  _applyMaskFrameStyle = () => {
     let backgroundColor = 'rgba(0, 0, 0, 0.6)';
     if (
       this.props.backgroundColor &&
@@ -121,6 +121,7 @@ class BarcodeMask extends React.Component {
     ) {
       backgroundColor = this.props.backgroundColor;
     }
+
     return { backgroundColor: backgroundColor, flex: 1 };
   };
 
@@ -183,12 +184,12 @@ class BarcodeMask extends React.Component {
         </View>
 
         <View style={styles.maskOuter}>
-          <View style={[styles.maskRow, this._applyMaskFrameBackgroundColor()]} />
+          <View style={[styles.maskRow, this._applyMaskFrameStyle()]} />
           <View
             style={[{ height: this.props.height }, styles.maskCenter]}
             onLayout={this._onMaskCenterViewLayoutUpdated}
           >
-            <View style={[this._applyMaskFrameBackgroundColor()]} />
+            <View style={[this._applyMaskFrameStyle()]} />
             <View
               style={[
                 styles.maskInner,
@@ -198,9 +199,9 @@ class BarcodeMask extends React.Component {
                 },
               ]}
             />
-            <View style={[this._applyMaskFrameBackgroundColor()]} />
+            <View style={[this._applyMaskFrameStyle()]} />
           </View>
-          <View style={[styles.maskRow, this._applyMaskFrameBackgroundColor()]} />
+          <View style={[styles.maskRow, this._applyMaskFrameStyle()]} />
         </View>
       </View>
     );
@@ -233,7 +234,7 @@ const defaultProps = {
   animatedLineColor: '#FFF',
   animatedLineHeight: 2,
   lineAnimationDuration: 1500,
-  backgroundColor: 'rbga(0, 0, 0, 0.6)'
+  backgroundColor: 'rgba(0, 0, 0, 0.6)'
 };
 
 BarcodeMask.propTypes = propTypes;
