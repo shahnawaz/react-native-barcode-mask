@@ -19,7 +19,7 @@
 
 ## Usage
 
-All you need is to `import` `BarcodeMask` from the `react-native-barcode-mask` module and then use it. 
+All you need is to `import` `BarcodeMask` from the `react-native-barcode-mask` module and then use it.
 
 #### Example use with RNCamera
 
@@ -76,8 +76,8 @@ Few style modifications:
 // Barcode example 3
 <BarcodeMask width={300} height={100} edgeBorderWidth={1} />
 ```
-  
-:star: Pretty cool! Right?  
+
+:star: Pretty cool! Right?
 
 ## Properties
 
@@ -150,10 +150,28 @@ Default: `2`
 Value: number  
 Default: `1500`
 
+#### `onMeasureLayout`
+
+Value: function  
+Returns: `{ x:number, y:number, width:number, height:number}`
+
+Use this to receive the mask coordinates and size:
+
+```jsx
+<BarcodeMask
+  onMeasureLayout={measurement => {
+    console.log("x", measurement.x);
+    console.log("y", measurement.y);
+    console.log("width", measurement.width);
+    console.log("height", measurement.height);
+  }}
+/>
+```
+
 ## Contribution
 
 Want to add some new styles or layout?  
-Want to update few things?  
+Want to update few things?
 
 Feel free to open a PR.
 

@@ -1,71 +1,70 @@
-import React from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Animated, StyleSheet, View, findNodeHandle } from "react-native";
+import PropTypes from "prop-types";
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...StyleSheet.absoluteFillObject,
+    alignItems: "center",
+    justifyContent: "center",
+    ...StyleSheet.absoluteFillObject
   },
   finder: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   },
   topLeftEdge: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
-    left: 0,
+    left: 0
   },
   topRightEdge: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
-    right: 0,
+    right: 0
   },
   bottomLeftEdge: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    left: 0,
+    left: 0
   },
   bottomRightEdge: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    right: 0,
+    right: 0
   },
   maskOuter: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "space-around"
   },
   maskInner: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent"
   },
   maskRow: {
-    width: '100%',
+    width: "100%"
   },
   maskCenter: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row"
   },
   animatedLine: {
-    position: 'absolute',
+    position: "absolute",
     elevation: 4,
     zIndex: 0,
-    width: '85%',
-  },
+    width: "85%"
+  }
 });
 
 class BarcodeMask extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       top: new Animated.Value(10),
-      maskCenterViewHeight: 0,
+      maskCenterViewHeight: 0
     };
   }
 
@@ -87,7 +86,7 @@ class BarcodeMask extends React.Component {
       }
     }, 500);
     this.setState({
-      intervalId,
+      intervalId
     });
   };
 
@@ -96,78 +95,110 @@ class BarcodeMask extends React.Component {
       Animated.sequence([
         Animated.timing(this.state.top, {
           toValue: this.state.maskCenterViewHeight - 10,
-          duration: this.props.lineAnimationDuration,
+          duration: this.props.lineAnimationDuration
         }),
         Animated.timing(this.state.top, {
           toValue: 10,
-          duration: this.props.lineAnimationDuration,
+          duration: this.props.lineAnimationDuration
         })
       ])
     );
     this.animation.start();
-  }
+  };
 
   _onMaskCenterViewLayoutUpdated = ({ nativeEvent }) => {
     this.setState({
-      maskCenterViewHeight: nativeEvent.layout.height,
+      maskCenterViewHeight: nativeEvent.layout.height
     });
   };
 
   _applyMaskFrameStyle = () => {
-    let backgroundColor = 'rgba(0, 0, 0, 0.6)';
-    if (
-      this.props.backgroundColor &&
-      String(this.props.backgroundColor)
-    ) {
+    let backgroundColor = "rgba(0, 0, 0, 0.6)";
+    if (this.props.backgroundColor && String(this.props.backgroundColor)) {
       backgroundColor = this.props.backgroundColor;
     }
 
     return { backgroundColor: backgroundColor, flex: 1 };
   };
 
-  _renderEdge = (edgePosition) => {
+  _renderEdge = edgePosition => {
     const defaultStyle = {
       width: this.props.edgeWidth,
       height: this.props.edgeHeight,
-      borderColor: this.props.edgeColor,
+      borderColor: this.props.edgeColor
     };
     const edgeBorderStyle = {
       topRight: {
         borderRightWidth: this.props.edgeBorderWidth,
-        borderTopWidth: this.props.edgeBorderWidth,
+        borderTopWidth: this.props.edgeBorderWidth
       },
       topLeft: {
         borderLeftWidth: this.props.edgeBorderWidth,
-        borderTopWidth: this.props.edgeBorderWidth,
+        borderTopWidth: this.props.edgeBorderWidth
       },
       bottomRight: {
         borderRightWidth: this.props.edgeBorderWidth,
-        borderBottomWidth: this.props.edgeBorderWidth,
+        borderBottomWidth: this.props.edgeBorderWidth
       },
       bottomLeft: {
         borderLeftWidth: this.props.edgeBorderWidth,
-        borderBottomWidth: this.props.edgeBorderWidth,
-      },
+        borderBottomWidth: this.props.edgeBorderWidth
+      }
     };
-    return <View style={[defaultStyle, styles[edgePosition + 'Edge'], edgeBorderStyle[edgePosition]]} />;
+    return (
+      <View
+        style={[
+          defaultStyle,
+          styles[edgePosition + "Edge"],
+          edgeBorderStyle[edgePosition]
+        ]}
+      />
+    );
   };
 
   render() {
     return (
-      <View style={[styles.container]}>
+      <View
+        ref={ref => {
+          this.container = ref;
+        }}
+        style={[styles.container]}
+      >
         <View
+          ref={ref => {
+            this.mask = ref;
+          }}
           style={[
             styles.finder,
             {
               width: this.props.width,
-              height: this.props.height,
-            },
+              height: this.props.height
+            }
           ]}
+          onLayout={nativeEvent => {
+            if (this.mask && this.props.onMeasureLayout) {
+              let onMeasureLayout = this.props.onMeasureLayout;
+              this.mask.measureLayout(
+                findNodeHandle(this.container),
+                function(x, y, width, height) {
+                  onMeasureLayout({
+                    x,
+                    y,
+                    width,
+                    height
+                  });
+                },
+                function(error) {
+                  console.log(error);
+                }
+              );
+            }
+          }}
         >
-          {this._renderEdge('topLeft')}
-          {this._renderEdge('topRight')}
-          {this._renderEdge('bottomLeft')}
-          {this._renderEdge('bottomRight')}
+          {this._renderEdge("topLeft")}
+          {this._renderEdge("topRight")}
+          {this._renderEdge("bottomLeft")}
+          {this._renderEdge("bottomRight")}
 
           {this.props.showAnimatedLine && (
             <Animated.View
@@ -176,8 +207,8 @@ class BarcodeMask extends React.Component {
                 {
                   backgroundColor: this.props.animatedLineColor,
                   height: this.props.animatedLineHeight,
-                  top: this.state.top,
-                },
+                  top: this.state.top
+                }
               ]}
             />
           )}
@@ -195,8 +226,8 @@ class BarcodeMask extends React.Component {
                 styles.maskInner,
                 {
                   width: this.props.width,
-                  height: this.props.height,
-                },
+                  height: this.props.height
+                }
               ]}
             />
             <View style={[this._applyMaskFrameStyle()]} />
@@ -206,7 +237,6 @@ class BarcodeMask extends React.Component {
       </View>
     );
   }
-
 }
 
 const propTypes: PropsType = {
@@ -219,8 +249,12 @@ const propTypes: PropsType = {
   showAnimatedLine: PropTypes.bool,
   animatedLineColor: PropTypes.string,
   animatedLineHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  lineAnimationDuration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  lineAnimationDuration: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   backgroundColor: PropTypes.string,
+  onMeasureLayout: PropTypes.func
 };
 
 const defaultProps = {
@@ -228,13 +262,13 @@ const defaultProps = {
   height: 230,
   edgeWidth: 20,
   edgeHeight: 20,
-  edgeColor: '#FFF',
+  edgeColor: "#FFF",
   edgeBorderWidth: 4,
   showAnimatedLine: true,
-  animatedLineColor: '#FFF',
+  animatedLineColor: "#FFF",
   animatedLineHeight: 2,
   lineAnimationDuration: 1500,
-  backgroundColor: 'rgba(0, 0, 0, 0.6)'
+  backgroundColor: "rgba(0, 0, 0, 0.6)"
 };
 
 BarcodeMask.propTypes = propTypes;
