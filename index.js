@@ -184,6 +184,7 @@ class BarcodeMask extends React.Component {
                 {
                   backgroundColor: this.props.animatedLineColor,
                   height: this.props.animatedLineHeight,
+                  width: this.props.animatedLineWidth,
                   top: this.state.top,
                 },
               ]}
@@ -228,6 +229,7 @@ const propTypes: PropsType = {
   showAnimatedLine: PropTypes.bool,
   animatedLineColor: PropTypes.string,
   animatedLineHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  animatedLineWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   lineAnimationDuration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   backgroundColor: PropTypes.string,
 };
@@ -243,6 +245,7 @@ const defaultProps = {
   showAnimatedLine: true,
   animatedLineColor: '#FFF',
   animatedLineHeight: 2,
+  animatedLineWidth: 210,
   lineAnimationDuration: 1500,
   backgroundColor: 'rgba(0, 0, 0, 0.6)'
 };
