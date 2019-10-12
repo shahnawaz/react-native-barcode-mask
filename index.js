@@ -135,18 +135,26 @@ class BarcodeMask extends React.Component {
       topRight: {
         borderRightWidth: this.props.edgeBorderWidth,
         borderTopWidth: this.props.edgeBorderWidth,
+        marginTop: this.props.edgeMargin,
+        marginRight: this.props.edgeMargin,
       },
       topLeft: {
         borderLeftWidth: this.props.edgeBorderWidth,
         borderTopWidth: this.props.edgeBorderWidth,
+        marginTop: this.props.edgeMargin,
+        marginLeft: this.props.edgeMargin,
       },
       bottomRight: {
         borderRightWidth: this.props.edgeBorderWidth,
         borderBottomWidth: this.props.edgeBorderWidth,
+        marginBottom: this.props.edgeMargin,
+        marginRight: this.props.edgeMargin,
       },
       bottomLeft: {
         borderLeftWidth: this.props.edgeBorderWidth,
         borderBottomWidth: this.props.edgeBorderWidth,
+        marginBottom: this.props.edgeMargin,
+        marginLeft: this.props.edgeMargin,
       },
     };
     return <View style={[defaultStyle, styles[edgePosition + 'Edge'], edgeBorderStyle[edgePosition]]} />;
@@ -216,6 +224,7 @@ const propTypes: PropsType = {
   edgeHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   edgeColor: PropTypes.string,
   edgeBorderWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  edgeMargin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   showAnimatedLine: PropTypes.bool,
   animatedLineColor: PropTypes.string,
   animatedLineHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -230,6 +239,7 @@ const defaultProps = {
   edgeHeight: 20,
   edgeColor: '#FFF',
   edgeBorderWidth: 4,
+  edgeMargin: 0,
   showAnimatedLine: true,
   animatedLineColor: '#FFF',
   animatedLineHeight: 2,
