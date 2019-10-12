@@ -145,6 +145,11 @@ Default: `#FFF`
 Value: number  
 Default: `2`
 
+#### `animatedLineWidth`
+
+Value: number  
+Default: `210`
+
 #### `lineAnimationDuration`
 
 Value: number  
