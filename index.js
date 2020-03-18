@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class BarcodeMask extends React.Component {
+export class BarcodeMask extends React.Component {
 
   constructor(props) {
     super(props);
