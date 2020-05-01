@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  node: circleci/node:8
+  node: circleci/node@1.1.6
 jobs:
   test:
     executor:
@@ -12,7 +12,7 @@ jobs:
             - run: npm test
   release:
     docker:
-      - image: node/default
+      - image: circleci/node:8
     steps:
       - checkout
       - run:
