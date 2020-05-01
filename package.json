@@ -5,11 +5,12 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified - Exiting with code 0 (success)\" && exit 0"
+    "test": "echo \"Error: no test specified - Exiting with code 0 (success)\" && exit 0",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shahnawaz/react-native-barcode-mask.git"
+    "url": "https://github.com/shahnawaz/react-native-barcode-mask.git"
   },
   "keywords": [
     "react-native",
@@ -34,7 +35,8 @@
     "react-native": "^0.57.8"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^3.1.0"
+    "cz-conventional-changelog": "^3.1.0",
+    "semantic-release": "^17.0.7"
   },
   "config": {
     "commitizen": {

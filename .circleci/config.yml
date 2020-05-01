@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
+  node: circleci/node:8
 jobs:
   test:
     executor:
@@ -10,7 +10,21 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm test
+  release:
+    docker:
+      - image: node/default
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: npm install
+      - run:
+          name: release
+          command: npm run semantic-release || true
 workflows:
-    test:
+    test_and_release:
       jobs:
         - test
+        - release:
+            requires:
+              - test
