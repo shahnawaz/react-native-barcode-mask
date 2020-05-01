@@ -32,5 +32,13 @@
   "peerDependency": {
     "react": "^16.4.0",
     "react-native": "^0.57.8"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
