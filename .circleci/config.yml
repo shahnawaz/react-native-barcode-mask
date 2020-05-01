@@ -12,7 +12,7 @@ jobs:
             - run: npm test
   release:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10.18.0
     steps:
       - checkout
       - run:
