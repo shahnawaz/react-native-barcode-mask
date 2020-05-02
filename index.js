@@ -55,17 +55,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     elevation: 4,
     zIndex: 0,
-    width: '85%',
   },
 });
-
 class BarcodeMask extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      top: new Animated.Value(10),
-      maskCenterViewHeight: 0,
+      top: new Animated.Value(props.edgeBorderWidth),
+      left: new Animated.Value(props.edgeBorderWidth),
     };
   }
 
@@ -81,9 +79,10 @@ class BarcodeMask extends React.Component {
 
   _startLineAnimation = () => {
     const intervalId = setInterval(() => {
-      if (this.state.maskCenterViewHeight > 0) {
+      const { finderLayout, intervalId } = this.state;
+      if (finderLayout.height > 0) {
         this._animateLoop();
-        clearInterval(this.state.intervalId);
+        clearInterval(intervalId);
       }
     }, 500);
     this.setState({
@@ -92,113 +91,124 @@ class BarcodeMask extends React.Component {
   };
 
   _animateLoop = () => {
+    const { 
+      animatedLineOrientation,
+      lineAnimationDuration, 
+      edgeBorderWidth,
+      animatedLineWidth,
+      animatedLineHeight 
+    } = this.props;
+    const { finderLayout } = this.state;
+    const isHorizontal = animatedLineOrientation !== 'vertical';
+    const propertyToChange = isHorizontal ? 'top' : 'left';
+    const startValue = edgeBorderWidth;
+    let endValue = (isHorizontal ? finderLayout.height : finderLayout.width);
+    endValue -= (edgeBorderWidth * 2 + (isHorizontal ? animatedLineHeight : animatedLineWidth) * 2);
     this.animation = Animated.loop(
       Animated.sequence([
-        Animated.timing(this.state.top, {
-          toValue: this.state.maskCenterViewHeight - 10,
-          duration: this.props.lineAnimationDuration,
+        Animated.timing(this.state[propertyToChange], {
+          toValue: endValue,
+          duration: lineAnimationDuration
         }),
-        Animated.timing(this.state.top, {
-          toValue: 10,
-          duration: this.props.lineAnimationDuration,
+        Animated.timing(this.state[propertyToChange], {
+          toValue: startValue,
+          duration: lineAnimationDuration
         })
       ])
     );
     this.animation.start();
   }
 
-  _onMaskCenterViewLayoutUpdated = ({ nativeEvent }) => {
-    this.setState({
-      maskCenterViewHeight: nativeEvent.layout.height,
-    });
-  };
-
   _applyMaskFrameStyle = () => {
-    let backgroundColor = 'rgba(0, 0, 0, 0.6)';
-    if (
-      this.props.backgroundColor &&
-      String(this.props.backgroundColor)
-    ) {
-      backgroundColor = this.props.backgroundColor;
-    }
-
-    return { backgroundColor: backgroundColor, flex: 1 };
+    const { backgroundColor, outerMaskOpacity } = this.props;
+    return { backgroundColor, opacity: outerMaskOpacity, flex: 1 };
   };
 
   _renderEdge = (edgePosition) => {
+    const { edgeWidth, edgeHeight, edgeColor, edgeBorderWidth } = this.props;
     const defaultStyle = {
-      width: this.props.edgeWidth,
-      height: this.props.edgeHeight,
-      borderColor: this.props.edgeColor,
+        width: edgeWidth,
+        height: edgeHeight,
+        borderColor: edgeColor
     };
     const edgeBorderStyle = {
       topRight: {
-        borderRightWidth: this.props.edgeBorderWidth,
-        borderTopWidth: this.props.edgeBorderWidth,
+        borderRightWidth: edgeBorderWidth,
+        borderTopWidth: edgeBorderWidth
       },
       topLeft: {
-        borderLeftWidth: this.props.edgeBorderWidth,
-        borderTopWidth: this.props.edgeBorderWidth,
+        borderLeftWidth: edgeBorderWidth,
+        borderTopWidth: edgeBorderWidth
       },
       bottomRight: {
-        borderRightWidth: this.props.edgeBorderWidth,
-        borderBottomWidth: this.props.edgeBorderWidth,
+        borderRightWidth: edgeBorderWidth,
+        borderBottomWidth: edgeBorderWidth
       },
       bottomLeft: {
-        borderLeftWidth: this.props.edgeBorderWidth,
-        borderBottomWidth: this.props.edgeBorderWidth,
+        borderLeftWidth: edgeBorderWidth,
+        borderBottomWidth: edgeBorderWidth
       },
     };
     return <View style={[defaultStyle, styles[edgePosition + 'Edge'], edgeBorderStyle[edgePosition]]} />;
   };
 
+  _onFinderLayoutMeasured = ({ nativeEvent }) => {
+    const { onLayoutMeasured } = this.props;
+    const { layout } = nativeEvent;
+    this.setState({
+        finderLayout: layout
+    })
+    if (onLayoutMeasured) {
+        onLayoutMeasured(nativeEvent);
+    }
+  }
+
   render() {
+    const { 
+      width,
+      height,
+      showAnimatedLine,
+      animatedLineColor,
+      animatedLineWidth,
+      animatedLineHeight,
+      animatedLineOrientation,
+      edgeBorderWidth
+    } = this.props;
+    const animatedLineStyle = {
+      backgroundColor: animatedLineColor,
+      height: animatedLineHeight,
+      maxHeight: height,
+      width: animatedLineWidth,
+      maxWidth: width,
+      margin: edgeBorderWidth
+    };
+    if (animatedLineOrientation !== 'vertical') {
+      animatedLineStyle.top = this.state.top
+    } else {
+      animatedLineStyle.left = this.state.left
+    }
+
     return (
       <View style={[styles.container]}>
         <View
-          style={[
-            styles.finder,
-            {
-              width: this.props.width,
-              height: this.props.height,
-            },
-          ]}
+          style={[ styles.finder, { width, height } ]}
+          onLayout={this._onFinderLayoutMeasured}
         >
           {this._renderEdge('topLeft')}
           {this._renderEdge('topRight')}
           {this._renderEdge('bottomLeft')}
           {this._renderEdge('bottomRight')}
-
-          {this.props.showAnimatedLine && (
+          {showAnimatedLine && (
             <Animated.View
-              style={[
-                styles.animatedLine,
-                {
-                  backgroundColor: this.props.animatedLineColor,
-                  height: this.props.animatedLineHeight,
-                  top: this.state.top,
-                },
-              ]}
+              style={[ styles.animatedLine, animatedLineStyle ]}
             />
           )}
         </View>
-
         <View style={styles.maskOuter}>
           <View style={[styles.maskRow, this._applyMaskFrameStyle()]} />
-          <View
-            style={[{ height: this.props.height }, styles.maskCenter]}
-            onLayout={this._onMaskCenterViewLayoutUpdated}
-          >
+          <View style={[{ height }, styles.maskCenter]} >
             <View style={[this._applyMaskFrameStyle()]} />
-            <View
-              style={[
-                styles.maskInner,
-                {
-                  width: this.props.width,
-                  height: this.props.height,
-                },
-              ]}
-            />
+            <View style={[ styles.maskInner, { width, height } ]} />
             <View style={[this._applyMaskFrameStyle()]} />
           </View>
           <View style={[styles.maskRow, this._applyMaskFrameStyle()]} />
@@ -209,18 +219,22 @@ class BarcodeMask extends React.Component {
 
 }
 
-const propTypes: PropsType = {
+const propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   edgeWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   edgeHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   edgeColor: PropTypes.string,
   edgeBorderWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  backgroundColor: PropTypes.string,
+  outerMaskOpacity: PropTypes.number,
   showAnimatedLine: PropTypes.bool,
   animatedLineColor: PropTypes.string,
   animatedLineHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  animatedLineWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   lineAnimationDuration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  backgroundColor: PropTypes.string,
+  animatedLineOrientation: PropTypes.string,
+  onLayoutMeasured: PropTypes.func
 };
 
 const defaultProps = {
@@ -230,11 +244,14 @@ const defaultProps = {
   edgeHeight: 20,
   edgeColor: '#FFF',
   edgeBorderWidth: 4,
+  backgroundColor: 'rgb(0, 0, 0)',
+  outerMaskOpacity: 0.6,
   showAnimatedLine: true,
   animatedLineColor: '#FFF',
   animatedLineHeight: 2,
-  lineAnimationDuration: 1500,
-  backgroundColor: 'rgba(0, 0, 0, 0.6)'
+  animatedLineWidth: '85%',
+  lineAnimationDuration: 5000,
+  animatedLineOrientation: 'horizontal'
 };
 
 BarcodeMask.propTypes = propTypes;

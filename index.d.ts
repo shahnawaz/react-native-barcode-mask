@@ -8,10 +8,14 @@ export interface BarcodeMaskProps {
 	edgeColor?: string;
 	edgeBorderWidth?: number | string;
 	backgroundColor?: string;
+	outerMaskOpacity?: number;
 	showAnimatedLine?: boolean;
 	animatedLineColor?: string;
-	animatedLineHeight?: number;
+	animatedLineHeight?: number | string;
+	animatedLineWidth?: number | string,
 	lineAnimationDuration?: number;
+	animatedLineOrientation?: PropTypes.string;
+	onLayoutMeasured: PropTypes.func;
 }
 
 declare class BarcodeMask extends Component<BarcodeMaskProps, {}> {}

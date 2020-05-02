@@ -1,8 +1,9 @@
 # react-native-barcode-mask
 
 ![version](https://img.shields.io/npm/v/react-native-barcode-mask.svg?style=flat-square)
-![dependencies](https://img.shields.io/david/shahnawaz/react-native-barcode-mask.svg?style=flat-square)
+![download](https://img.shields.io/npm/dt/react-native-barcode-mask?style=flat-square)
 ![licence](https://img.shields.io/npm/l/react-native-barcode-mask.svg?style=flat-square)
+![dependencies](https://img.shields.io/david/shahnawaz/react-native-barcode-mask.svg?style=flat-square)
 
 > :camera: A barcode and QR code scan layout for react-native applications with customizable styling
 
@@ -71,7 +72,7 @@ Few style modifications:
 <BarcodeMask edgeColor={'#62B1F6'} showAnimatedLine={false}/>
 
 // Barcode example 2
-<BarcodeMask width={100} height={300} showAnimatedLine={false} transparency={0.8}/>
+<BarcodeMask width={100} height={300} showAnimatedLine={false} outerMaskOpacity={0.8}/>
 
 // Barcode example 3
 <BarcodeMask width={300} height={100} edgeBorderWidth={1} />
@@ -83,72 +84,89 @@ Few style modifications:
 
 #### `width`
 
-Value: number | string (`%`)  
+Value: `number` | `string` (`%`)  
 Default: `280`
 
 Finder's width (the visible area)
 
 #### `height`
 
-Value: number | string (`%`)  
+Value: `number` | `string` (`%`)  
 Default: `230`
 
 Finder's height (the visible area)
 
 #### `edgeWidth`
 
-Value: number | string (`%`)  
+Value: `number` | `string` (`%`)  
 Default: `20`
 
 Edge/Corner's width
 
 #### `edgeHeight`
 
-Value: number | string (`%`)  
+Value: `number` | `string` (`%`)  
 Default: `20`
 
 Edge/Corner's height
 
 #### `edgeColor`
 
-Value: string  
+Value: `string`  
 Default: `#FFF`
 
 Use this to give custom color to edges
 
 #### `edgeBorderWidth`
 
-Value: number | string (`%`)  
+Value: `number` | `string` (`%`)  
 Default: `4`
 
 Use this to modify the border (thickness) of edges
 
 #### `backgroundColor`
 
-Value: string `rgba(0, 0, 0, 0.6)`  
-Default: `rgba(0, 0, 0, 0.6)`
+Value: `string`  
+Default: `rgb(0, 0, 0, 0.6)`
 
 Use this to modify the background color of area around finder
 
+#### `outerMaskOpacity`
+
+Value: `number` (0 - 1)  
+Default: 0.6
+
+Use this to modify the transparency of outer mask
+
 #### `showAnimatedLine`
 
-Value: boolean `true` | `false`  
+Value: `boolean`  
 Default: `true`
 
 #### `animatedLineColor`
 
-Value: string  
+Value: `string`  
 Default: `#FFF`
 
 #### `animatedLineHeight`
 
-Value: number  
+Value: `number`  
 Default: `2`
+
+#### `animatedLineWidth`
+
+Value: `number` | `string` (`%`)  
+Default: `85%`
 
 #### `lineAnimationDuration`
 
-Value: number  
+Value: `number`  
 Default: `1500`
+
+#### `animatedLineOrientation`
+
+Value: `string` (`horizontal` | `vertical`)  
+Default: `horiontal`
 
 ## Contribution
 
