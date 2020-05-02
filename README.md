@@ -3,6 +3,8 @@
 ![version](https://img.shields.io/npm/v/react-native-barcode-mask.svg?style=flat-square)
 ![download](https://img.shields.io/npm/dt/react-native-barcode-mask?style=flat-square)
 ![licence](https://img.shields.io/npm/l/react-native-barcode-mask.svg?style=flat-square)
+![build](https://img.shields.io/circleci/build/github/shahnawaz/react-native-barcode-mask?style=flat-square)
+![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/shahnawaz/react-native-barcode-mask?color=%2397CA00&style=flat-square)
 ![dependencies](https://img.shields.io/david/shahnawaz/react-native-barcode-mask.svg?style=flat-square)
 
 > :camera: A barcode and QR code scan layout for react-native applications with customizable styling
