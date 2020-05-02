@@ -7,6 +7,7 @@ export interface BarcodeMaskProps {
 	edgeHeight?: number | string;
 	edgeColor?: string;
 	edgeBorderWidth?: number | string;
+	edgeRadius?: number;
 	backgroundColor?: string;
 	outerMaskOpacity?: number;
 	showAnimatedLine?: boolean;

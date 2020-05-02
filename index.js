@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'space-around',
+    zIndex: -1
   },
   maskInner: {
     backgroundColor: 'transparent',
@@ -64,6 +65,7 @@ class BarcodeMask extends React.Component {
     this.state = {
       top: new Animated.Value(props.edgeBorderWidth),
       left: new Animated.Value(props.edgeBorderWidth),
+      edgeRadiusOffset: props.edgeRadius ? -Math.abs( props.edgeRadius / 3) : 0
     };
   }
 
@@ -125,7 +127,8 @@ class BarcodeMask extends React.Component {
   };
 
   _renderEdge = (edgePosition) => {
-    const { edgeWidth, edgeHeight, edgeColor, edgeBorderWidth } = this.props;
+    const { edgeWidth, edgeHeight, edgeColor, edgeBorderWidth, edgeRadius } = this.props;
+    const { edgeRadiusOffset } = this.state;
     const defaultStyle = {
         width: edgeWidth,
         height: edgeHeight,
@@ -134,19 +137,31 @@ class BarcodeMask extends React.Component {
     const edgeBorderStyle = {
       topRight: {
         borderRightWidth: edgeBorderWidth,
-        borderTopWidth: edgeBorderWidth
+        borderTopWidth: edgeBorderWidth,
+        borderTopRightRadius: edgeRadius,
+        top: edgeRadiusOffset,
+        right: edgeRadiusOffset,
       },
       topLeft: {
         borderLeftWidth: edgeBorderWidth,
-        borderTopWidth: edgeBorderWidth
+        borderTopWidth: edgeBorderWidth,
+        borderTopLeftRadius: edgeRadius,
+        top: edgeRadiusOffset,
+        left: edgeRadiusOffset
       },
       bottomRight: {
         borderRightWidth: edgeBorderWidth,
-        borderBottomWidth: edgeBorderWidth
+        borderBottomWidth: edgeBorderWidth,
+        borderBottomRightRadius: edgeRadius,
+        bottom: edgeRadiusOffset,
+        right: edgeRadiusOffset
       },
       bottomLeft: {
         borderLeftWidth: edgeBorderWidth,
-        borderBottomWidth: edgeBorderWidth
+        borderBottomWidth: edgeBorderWidth,
+        borderBottomLeftRadius: edgeRadius,
+        bottom: edgeRadiusOffset,
+        left: edgeRadiusOffset,
       },
     };
     return <View style={[defaultStyle, styles[edgePosition + 'Edge'], edgeBorderStyle[edgePosition]]} />;
@@ -226,6 +241,7 @@ const propTypes = {
   edgeHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   edgeColor: PropTypes.string,
   edgeBorderWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  edgeRadius: PropTypes.number,
   backgroundColor: PropTypes.string,
   outerMaskOpacity: PropTypes.number,
   showAnimatedLine: PropTypes.bool,
