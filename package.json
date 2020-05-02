@@ -1,6 +1,6 @@
 {
   "name": "react-native-barcode-mask",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "A barcode and QR code scan layout for react-native applications with customizable styling",
   "main": "index.js",
   "typings": "index.d.ts",

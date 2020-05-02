@@ -177,6 +177,27 @@ Default: `1500`
 Value: `string` (`horizontal` | `vertical`)  
 Default: `horiontal`
 
+#### `useNativeDriver`
+
+Value: `boolean`  
+Default: `true`
+
+React Native > `0.62.x` requires us to sepcify `useNativeDriver` while working with animation
+
+#### `onLayoutMeasured`
+
+value: `function`  
+
+Details: Handler to receive `onLayout` event of finder. Useful if you want to only detect barcode inside the Finder area.
+
+parameter: `nativeEvent`
+```
+{
+    target: number,
+    layout: { height: number, width: number, x: number, y: number}
+}
+```
+
 ## Contribution
 
 Want to add some new styles or layout?  

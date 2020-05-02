@@ -63,9 +63,7 @@ class BarcodeMask extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      top: new Animated.Value(props.edgeBorderWidth),
-      left: new Animated.Value(props.edgeBorderWidth),
-      edgeRadiusOffset: props.edgeRadius ? -Math.abs( props.edgeRadius / 3) : 0
+        edgeRadiusOffset: props.edgeRadius ? -Math.abs(props.edgeRadius / 3) : 0
     };
   }
 
@@ -82,7 +80,7 @@ class BarcodeMask extends React.Component {
   _startLineAnimation = () => {
     const intervalId = setInterval(() => {
       const { finderLayout, intervalId } = this.state;
-      if (finderLayout.height > 0) {
+      if (finderLayout && finderLayout.height > 0) {
         this._animateLoop();
         clearInterval(intervalId);
       }
@@ -95,26 +93,25 @@ class BarcodeMask extends React.Component {
   _animateLoop = () => {
     const { 
       animatedLineOrientation,
-      lineAnimationDuration, 
-      edgeBorderWidth,
-      animatedLineWidth,
-      animatedLineHeight 
+      lineAnimationDuration,
+      useNativeDriver
     } = this.props;
-    const { finderLayout } = this.state;
+    const { lineTravelWindowDistance } = this.state;
     const isHorizontal = animatedLineOrientation !== 'vertical';
     const propertyToChange = isHorizontal ? 'top' : 'left';
-    const startValue = edgeBorderWidth;
-    let endValue = (isHorizontal ? finderLayout.height : finderLayout.width);
-    endValue -= (edgeBorderWidth * 2 + (isHorizontal ? animatedLineHeight : animatedLineWidth) * 2);
+    const startValue = -lineTravelWindowDistance;
+    const endValue = lineTravelWindowDistance;
     this.animation = Animated.loop(
       Animated.sequence([
         Animated.timing(this.state[propertyToChange], {
           toValue: endValue,
-          duration: lineAnimationDuration
+          duration: lineAnimationDuration,
+          useNativeDriver
         }),
         Animated.timing(this.state[propertyToChange], {
           toValue: startValue,
-          duration: lineAnimationDuration
+          duration: lineAnimationDuration,
+          useNativeDriver
         })
       ])
     );
@@ -167,11 +164,23 @@ class BarcodeMask extends React.Component {
     return <View style={[defaultStyle, styles[edgePosition + 'Edge'], edgeBorderStyle[edgePosition]]} />;
   };
 
+  _calculateLineTravelWindowDistance({ layout, isHorizontalOrientation }) {
+    return (((isHorizontalOrientation ? layout.height : layout.width) - 10)/2);
+  }
+
   _onFinderLayoutMeasured = ({ nativeEvent }) => {
-    const { onLayoutMeasured } = this.props;
+    const { animatedLineOrientation, onLayoutMeasured } = this.props;
     const { layout } = nativeEvent;
+    const isHorizontal = animatedLineOrientation !== 'vertical';
+    const travelDistance = this._calculateLineTravelWindowDistance({ 
+        layout, 
+        isHorizontalOrientation: isHorizontal,
+    });
     this.setState({
-        finderLayout: layout
+        top: new Animated.Value(-travelDistance),
+        left: new Animated.Value(-travelDistance),
+        lineTravelWindowDistance: travelDistance, 
+        finderLayout: layout,
     })
     if (onLayoutMeasured) {
         onLayoutMeasured(nativeEvent);
@@ -197,10 +206,15 @@ class BarcodeMask extends React.Component {
       maxWidth: width,
       margin: edgeBorderWidth
     };
-    if (animatedLineOrientation !== 'vertical') {
-      animatedLineStyle.top = this.state.top
-    } else {
-      animatedLineStyle.left = this.state.left
+    const { finderLayout, top, left } = this.state;
+    if (finderLayout && animatedLineOrientation !== 'vertical') {
+        animatedLineStyle.transform = [{ 
+            translateY: top
+        }]
+    } else if (finderLayout) {
+        animatedLineStyle.transform = [{ 
+            translateX: left
+        }]
     }
 
     return (
@@ -250,6 +264,7 @@ const propTypes = {
   animatedLineWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   lineAnimationDuration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   animatedLineOrientation: PropTypes.string,
+  useNativeDriver: PropTypes.bool,
   onLayoutMeasured: PropTypes.func
 };
 
@@ -267,7 +282,8 @@ const defaultProps = {
   animatedLineHeight: 2,
   animatedLineWidth: '85%',
   lineAnimationDuration: 5000,
-  animatedLineOrientation: 'horizontal'
+  animatedLineOrientation: 'horizontal',
+  useNativeDriver: true
 };
 
 BarcodeMask.propTypes = propTypes;

@@ -1,5 +1,20 @@
 import { Component } from 'react';
 
+/* taken from react-native types */
+export interface LayoutRectangle {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
+
+/* taken from react-native types */
+export interface LayoutChangeEvent {
+    nativeEvent: {
+        layout: LayoutRectangle;
+    };
+}
+
 export interface BarcodeMaskProps {
 	width?: number | string;
 	height?: number | string;
@@ -15,8 +30,9 @@ export interface BarcodeMaskProps {
 	animatedLineHeight?: number | string;
 	animatedLineWidth?: number | string,
 	lineAnimationDuration?: number;
-	animatedLineOrientation?: PropTypes.string;
-	onLayoutMeasured: PropTypes.func;
+	animatedLineOrientation?: string;
+	useNativeDriver?: boolean;
+	onLayoutMeasured?: (nativeEvent: LayoutChangeEvent) => {};
 }
 
 declare class BarcodeMask extends Component<BarcodeMaskProps, {}> {}
