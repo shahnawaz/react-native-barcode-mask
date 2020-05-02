@@ -126,6 +126,13 @@ Default: `4`
 
 Use this to modify the border (thickness) of edges
 
+#### `edgeRadius`
+
+Value: `number` 
+Default: `0`
+
+Use this to modify the border radius of edges
+
 #### `backgroundColor`
 
 Value: `string`  
