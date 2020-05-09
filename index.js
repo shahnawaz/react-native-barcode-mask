@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'space-around',
-    zIndex: -1
   },
   maskInner: {
     backgroundColor: 'transparent',
