@@ -182,7 +182,7 @@ class BarcodeMask extends React.Component {
         finderLayout: layout,
     })
     if (onLayoutMeasured) {
-        onLayoutMeasured(nativeEvent);
+        onLayoutMeasured({ nativeEvent });
     }
   }
 
