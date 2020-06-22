@@ -79,6 +79,10 @@ Few style modifications:
 // Barcode example 3
 <BarcodeMask width={300} height={100} edgeBorderWidth={1} />
 ```
+
+#### Barcode full code example:
+https://gist.github.com/shahnawaz/d24ae843fc3a6056bef9c752d9b35e03
+  
   
 :star: Pretty cool! Right?  
 
