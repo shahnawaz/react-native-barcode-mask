@@ -11,6 +11,7 @@ export interface LayoutRectangle {
 /* taken from react-native types */
 export interface LayoutChangeEvent {
     nativeEvent: {
+		target: number;
         layout: LayoutRectangle;
     };
 }
@@ -32,7 +33,7 @@ export interface BarcodeMaskProps {
 	lineAnimationDuration?: number;
 	animatedLineOrientation?: string;
 	useNativeDriver?: boolean;
-	onLayoutMeasured?: (nativeEvent: LayoutChangeEvent) => {};
+	onLayoutMeasured?: (event: LayoutChangeEvent) => {};
 }
 
 declare class BarcodeMask extends Component<BarcodeMaskProps, {}> {}

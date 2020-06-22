@@ -194,11 +194,13 @@ value: `function`
 
 Details: Handler to receive `onLayout` event of finder. Useful if you want to only detect barcode inside the Finder area.
 
-parameter: `nativeEvent`
+parameter: `event`
 ```
 {
-    target: number,
-    layout: { height: number, width: number, x: number, y: number}
+    nativeEvent: {
+        target: number,
+        layout: { height: number, width: number, x: number, y: number}
+    }
 }
 ```
 
