@@ -33,7 +33,7 @@ export interface BarcodeMaskProps {
 	lineAnimationDuration?: number;
 	animatedLineOrientation?: string;
 	useNativeDriver?: boolean;
-	onLayoutMeasured?: (event: LayoutChangeEvent) => {};
+	onLayoutMeasured?: (event: LayoutChangeEvent) => void;
 }
 
 declare class BarcodeMask extends Component<BarcodeMaskProps, {}> {}
