@@ -128,7 +128,8 @@ class BarcodeMask extends React.Component {
     const defaultStyle = {
         width: edgeWidth,
         height: edgeHeight,
-        borderColor: edgeColor
+        borderColor: edgeColor,
+        zIndex: 5
     };
     const edgeBorderStyle = {
       topRight: {
