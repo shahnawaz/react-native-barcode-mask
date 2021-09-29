@@ -174,7 +174,7 @@ Default: `85%`
 #### `lineAnimationDuration`
 
 Value: `number`  
-Default: `1500`
+Default: `5000`
 
 #### `animatedLineOrientation`
 
