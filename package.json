@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/shahnawaz/react-native-barcode-mask#readme",
   "dependencies": {
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.8.0"
   },
   "peerDependency": {
     "react": "^16.4.0",
