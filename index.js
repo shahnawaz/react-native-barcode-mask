@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   finder: {
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 1,
   },
   topLeftEdge: {
     position: 'absolute',
