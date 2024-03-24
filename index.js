@@ -12,26 +12,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  topLeftEdge: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-  },
-  topRightEdge: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-  },
-  bottomLeftEdge: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-  },
-  bottomRightEdge: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-  },
   maskOuter: {
     position: 'absolute',
     top: 0,
@@ -123,9 +103,13 @@ class BarcodeMask extends React.Component {
   };
 
   _renderEdge = (edgePosition) => {
-    const { edgeWidth, edgeHeight, edgeColor, edgeBorderWidth, edgeRadius } = this.props;
+    const { edgeWidth, edgeHeight, edgeColor, edgeBorderWidth, edgeRadius, edgeOffset } = this.props;
     const { edgeRadiusOffset } = this.state;
+
+    const offset = edgeRadiusOffset - edgeOffset;
+
     const defaultStyle = {
+        position: 'absolute',
         width: edgeWidth,
         height: edgeHeight,
         borderColor: edgeColor
@@ -135,32 +119,32 @@ class BarcodeMask extends React.Component {
         borderRightWidth: edgeBorderWidth,
         borderTopWidth: edgeBorderWidth,
         borderTopRightRadius: edgeRadius,
-        top: edgeRadiusOffset,
-        right: edgeRadiusOffset,
+        top: offset,
+        right: offset,
       },
       topLeft: {
         borderLeftWidth: edgeBorderWidth,
         borderTopWidth: edgeBorderWidth,
         borderTopLeftRadius: edgeRadius,
-        top: edgeRadiusOffset,
-        left: edgeRadiusOffset
+        top: offset,
+        left: offset
       },
       bottomRight: {
         borderRightWidth: edgeBorderWidth,
         borderBottomWidth: edgeBorderWidth,
         borderBottomRightRadius: edgeRadius,
-        bottom: edgeRadiusOffset,
-        right: edgeRadiusOffset
+        bottom: offset,
+        right: offset
       },
       bottomLeft: {
         borderLeftWidth: edgeBorderWidth,
         borderBottomWidth: edgeBorderWidth,
         borderBottomLeftRadius: edgeRadius,
-        bottom: edgeRadiusOffset,
-        left: edgeRadiusOffset,
+        bottom: offset,
+        left: offset,
       },
     };
-    return <View style={[defaultStyle, styles[edgePosition + 'Edge'], edgeBorderStyle[edgePosition]]} />;
+    return <View style={[defaultStyle, edgeBorderStyle[edgePosition]]} />;
   };
 
   _calculateLineTravelWindowDistance({ layout, isHorizontalOrientation }) {
@@ -255,6 +239,7 @@ const propTypes = {
   edgeColor: PropTypes.string,
   edgeBorderWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   edgeRadius: PropTypes.number,
+  edgeOffset: PropTypes.number,
   backgroundColor: PropTypes.string,
   outerMaskOpacity: PropTypes.number,
   showAnimatedLine: PropTypes.bool,
@@ -274,6 +259,7 @@ const defaultProps = {
   edgeHeight: 20,
   edgeColor: '#FFF',
   edgeBorderWidth: 4,
+  edgeOffset: 0,
   backgroundColor: 'rgb(0, 0, 0)',
   outerMaskOpacity: 0.6,
   showAnimatedLine: true,
